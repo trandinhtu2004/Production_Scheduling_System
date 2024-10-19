@@ -22,43 +22,39 @@ public class UserDBContext extends DBContext<User> {
         PreparedStatement stm = null;
         ArrayList<Role> roles = new ArrayList<>();
         try {
-            String sql ="SELECT * FROM [Users] u \n" +
-"                    INNER JOIN UserRoles ur ON u.[uid] = ur.[uid]\n" +
-"                    	INNER JOIN [Roles] r ON r.rid = ur.rid\n" +
-"                    	INNER JOIN RoleFeatures rf ON rf.rid = r.rid\n" +
-"                    	INNER JOIN Features f ON f.fid = rf.fid"
-                    +   "WHERE u.username = ? ";
-            
+            String sql = "SELECT * FROM [Users] u \n"
+                    + "  INNER JOIN UserRoles ur ON u.[uid] = ur.[uid]\n"
+                    + "  INNER JOIN [Roles] r ON r.rid = ur.rid\n"
+                    + "  INNER JOIN RoleFeatures rf ON rf.rid = r.rid\n"
+                    + "  INNER JOIN Features f ON f.fid = rf.fid\n"
+                    + "WHERE u.username = ? ";
+
             stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
             Role crole = new Role();
             crole.setId(-1);
-            while(rs.next())
-            {
+            while (rs.next()) {
                 int rid = rs.getInt("rid");
-                if(rid != crole.getId())
-                {
+                if (rid != crole.getId()) {
                     crole = new Role();
                     crole.setId(rid);
                     crole.setName(rs.getString("rname"));
                     roles.add(crole);
                 }
-                
+
                 Feature f = new Feature();
                 f.setId(rs.getInt("fid"));
                 f.setName(rs.getString("fname"));
                 f.setUrl(rs.getString("url"));
-                
+
                 f.setRoles(roles);
                 crole.getFeatures().add(f);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             try {
                 stm.close();
                 connection.close();
@@ -73,7 +69,7 @@ public class UserDBContext extends DBContext<User> {
         User user = null;
         PreparedStatement stm = null;
         try {
-            String sql = "SELECT [username],[password],[email] FROM [Users]\n"
+            String sql = "SELECT * FROM [Users]\n"
                     + "WHERE [username] = ? AND [password] = ?";
             stm = connection.prepareStatement(sql);
             stm.setString(1, username);
@@ -103,11 +99,9 @@ public class UserDBContext extends DBContext<User> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-   
     @Override
     public ArrayList<User> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-   
 }

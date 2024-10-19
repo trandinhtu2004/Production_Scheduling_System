@@ -46,6 +46,8 @@
                 News:
             </div>
         </div>
+        
+        <a href="plan/create">Add new plan</a>
 
     </div>
     <!-- Footer section -->
