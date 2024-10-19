@@ -22,12 +22,12 @@ public class UserDBContext extends DBContext<User> {
         PreparedStatement stm = null;
         ArrayList<Role> roles = new ArrayList<>();
         try {
-            String sql = "SELECT r.rid,r.rname,f.fid,f.fname,f.[url] FROM [Users] u \n"
-                    + "	INNER JOIN UserRole ur ON u.username = ur.username\n"
-                    + "	INNER JOIN [Role] r ON r.rid = ur.rid\n"
-                    + "	INNER JOIN RoleFeature rf ON rf.rid = r.rid\n"
-                    + "	INNER JOIN Feature f ON f.fid = rf.fid\n"
-                    + "WHERE u.username = ? ";
+            String sql ="SELECT * FROM [Users] u \n" +
+"                    INNER JOIN UserRoles ur ON u.[uid] = ur.[uid]\n" +
+"                    	INNER JOIN [Roles] r ON r.rid = ur.rid\n" +
+"                    	INNER JOIN RoleFeatures rf ON rf.rid = r.rid\n" +
+"                    	INNER JOIN Features f ON f.fid = rf.fid"
+                    +   "WHERE u.username = ? ";
             
             stm = connection.prepareStatement(sql);
             stm.setString(1, username);
@@ -81,7 +81,7 @@ public class UserDBContext extends DBContext<User> {
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 user = new User();
-                user.setDisplayname(rs.getString("displayname"));
+                user.setEmail(rs.getString("email"));
                 user.setUsername(username);
             }
 

@@ -26,6 +26,7 @@ public abstract class BaseRBACController extends BaseRequiredAuthenticationContr
         ArrayList<Role> roles = db.getRoles(account.getUsername());
         account.setRoles(roles);
         req.getSession().setAttribute("account", account);
+        
     }
     
     private boolean isAuthorized(HttpServletRequest req, User account)

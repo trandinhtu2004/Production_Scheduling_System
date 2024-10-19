@@ -31,9 +31,9 @@ public class LoginController extends HttpServlet {
         
         if(account != null)
         {
-            resp.getWriter().println("login successful!");
+            //resp.getWriter().println("login successful!");
             req.getSession().setAttribute("account", account);
-            req.getRequestDispatcher("../index.jsp").forward(req, resp);
+            resp.sendRedirect("index.jsp");
         }
         else
         {
