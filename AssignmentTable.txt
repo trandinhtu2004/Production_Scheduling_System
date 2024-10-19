@@ -1,0 +1,39 @@
+bảng : 
+
+	- Product - pid
+		  - pname
+		  
+
+	Department		- did     <-----------            
+		   		- wname		      |
+				- Type -WS            |
+				       -HD            |
+						      |
+	- employee	- eid			      |
+			- ename  	              |
+			- did nối với Department(did) |
+			- thông tin cá nhân
+			- salary level. (F1 F2 F3)
+	
+
+	- User	(có thể có quản đốc ) ->-uid
+				      | -username
+				      | -email
+				      |	-....
+				      |	
+				      |
+		-> matching Employee (uid,eid,isAchive)	 Ví dụ như Employee1 sở hữu User1 (tài khoản), 
+		   Employee4 -- User3 hoặc E6 có thể có 2 tài khoản U2-U4 
+
+	-Plan(plid, plname,start,end,did)
+
+
+	-Planheader(plid,pid,quantity,Estimation)
+
+
+	-planDetail(pdetail,plid,date,k,quantity)
+
+	-production_schedule(sid, pdetail-(plandetail), eid, quantity)
+
+
+	-Attendant(aid,sid,quantity,alpha(hệ số))
