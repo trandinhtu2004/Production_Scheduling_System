@@ -22,7 +22,7 @@ public class UserDBContext extends DBContext<User> {
         PreparedStatement stm = null;
         ArrayList<Role> roles = new ArrayList<>();
         try {
-            String sql = "SELECT r.rid,r.rname,f.fid,f.fname,f.[url] FROM [User] u \n"
+            String sql = "SELECT r.rid,r.rname,f.fid,f.fname,f.[url] FROM [Users] u \n"
                     + "	INNER JOIN UserRole ur ON u.username = ur.username\n"
                     + "	INNER JOIN [Role] r ON r.rid = ur.rid\n"
                     + "	INNER JOIN RoleFeature rf ON rf.rid = r.rid\n"
