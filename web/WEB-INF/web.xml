@@ -8,6 +8,10 @@
         <servlet-name>SystemLogin</servlet-name>
         <servlet-class>controller.auth.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListPlanController</servlet-name>
+        <servlet-class>controller.productionplan.ProductionListPlanController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CreatePlanController</servlet-name>
         <url-pattern>/plan/create</url-pattern>
@@ -17,12 +21,15 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet>
-    <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>controller.auth.LogoutController</servlet-class>
-</servlet>
-
-<servlet-mapping>
-    <servlet-name>LogoutServlet</servlet-name>
-    <url-pattern>/logout</url-pattern>
-</servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>controller.auth.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListPlanController</servlet-name>
+        <url-pattern>/plan/list</url-pattern>
+    </servlet-mapping>
 </web-app>

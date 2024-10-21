@@ -11,6 +11,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ProductionPlan;
 import java.sql.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import model.Department;
+import model.Product;
 import model.ProductionPlanHeader;
 
 /**
@@ -33,22 +39,21 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
                     + "           ,?\n"
                     + "           ,?\n"
                     + "           ,?)";
-            
+
             PreparedStatement stm_insert_plan = connection.prepareStatement(sql_insert_plan);
             stm_insert_plan.setString(1, model.getName());
             stm_insert_plan.setDate(2, model.getStart());
             stm_insert_plan.setDate(3, model.getEnd());
             stm_insert_plan.setInt(4, model.getDept().getId());
             stm_insert_plan.executeUpdate();
-            
+
             String sql_select_plan = "SELECT @@IDENTITY as plid";
             PreparedStatement stm_select_plan = connection.prepareStatement(sql_select_plan);
             ResultSet rs = stm_select_plan.executeQuery();
-            if(rs.next())
-            {
+            if (rs.next()) {
                 model.setId(rs.getInt("plid"));
             }
-            
+
             String sql_insert_header = "INSERT INTO [PlanHeaders]\n"
                     + "           ([plid]\n"
                     + "           ,[pid]\n"
@@ -59,7 +64,7 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
                     + "           ,?\n"
                     + "           ,?\n"
                     + "           ,?)";
-            
+
             for (ProductionPlanHeader header : model.getHeaders()) {
                 PreparedStatement stm_insert_header = connection.prepareStatement(sql_insert_header);
                 stm_insert_header.setInt(1, model.getId());
@@ -92,12 +97,76 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
 
     }
 
-   
-
     @Override
     public ArrayList<ProductionPlan> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<ProductionPlan> plans = new ArrayList<>();
+        HashMap<Integer, ProductionPlan> planMap = new HashMap<>();
+        
+        String sql = "SELECT pl.plid, pl.plname, pl.startdate, pl.enddate, d.dname, "
+                   + "p.pid, p.pname, ph.quantity, ph.estimatedeffort "
+                   + "FROM Plans pl "
+                   + "INNER JOIN PlanHeaders ph ON ph.plid = pl.plid "
+                   + "INNER JOIN Departments d ON d.did = pl.did "
+                   + "INNER JOIN Products p ON p.pid = ph.pid";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        
+        try {
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+            
+            while (rs.next()) {
+                int planId = rs.getInt("plid");
+                
+                // If the plan is not in the map, create a new one
+                ProductionPlan plan = planMap.get(planId);
+                if (plan == null) {
+                    plan = new ProductionPlan();
+                    plan.setId(planId);
+                    plan.setName(rs.getString("plname"));
+                    plan.setStart(rs.getDate("startdate"));
+                    plan.setEnd(rs.getDate("enddate"));
+
+                    Department d = new Department();
+                    d.setName(rs.getString("dname"));
+                    plan.setDept(d);
+                    
+                    planMap.put(planId, plan);
+                }
+
+                // Create a product and plan header
+                Product p = new Product();
+                p.setId(rs.getInt("pid"));
+                p.setName(rs.getString("pname"));
+
+                ProductionPlanHeader header = new ProductionPlanHeader();
+                header.setProduct(p);
+                header.setQuantity(rs.getInt("quantity"));
+                header.setEstimatedeffort(rs.getFloat("estimatedeffort"));
+
+                // Add header to the plan
+                plan.getHeaders().add(header);
+            }
+
+            // Convert the map values to a 
+            //list 
+            plans = new ArrayList<>(planMap.values());
+
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //return the arrayslist.
+        return plans;
+
     }
 
-    
 }

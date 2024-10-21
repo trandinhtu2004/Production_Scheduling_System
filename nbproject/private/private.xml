@@ -5,18 +5,23 @@
         <group>
             <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/dal/ProductDBContext.java</file>
             <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/dal/DBContext.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/controller/authentication/BaseRequiredAuthenticationController.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/web/productionplan/create.jsp</file>
-            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/controller/authentication/LogoutController.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/controller/productionplan/ProductionListPlanController.java</file>
             <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/web/login.html</file>
             <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/dal/DepartmentDBContext.java</file>
             <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/dal/ProductionPlanDBContext.java</file>
             <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/dal/UserDBContext.java</file>
             <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/controller/productionplan/ProductionPlanCreateController.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/model/Department.java</file>
             <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/web/index.jsp</file>
-            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/controller/authentication/LoginController.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/controller/authentication/BaseRBACController.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/web/plan/list.jsp</file>
+            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/model/ProductionPlan.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/model/authentication/User.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/controller/auth/BaseRequiredAuthenticationController.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/web/plan/create.jsp</file>
+            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/controller/productionplan/ProductionPlanDetailController.java</file>
             <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/model/ProductionPlanHeader.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/prj301/Production_Scheduling_System/src/java/controller/auth/LogoutController.java</file>
         </group>
     </open-files>
 </project-private>

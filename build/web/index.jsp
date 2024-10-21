@@ -46,9 +46,14 @@
                 News:
             </div>
         </div>
-        
+        <div>
+                <div class="createPlan">
         <a href="plan/create">Add new plan</a>
-
+            </div>
+                <div class="listPlan">
+        <a href="plan/list">List/Update plan</a>
+            </div>
+        </div>
     </div>
     <!-- Footer section -->
     <footer>
