@@ -14,7 +14,7 @@
     </head>
     <body>
         <h2>List of plans</h2>
-        
+
         <table border="1">
             <thead>
                 <tr>
@@ -23,37 +23,41 @@
                     <th>Workshop</th>
                     <th>Start</th>
                     <th>End</th>
-                    <th>Product</th>
-                    <th>Expectation quantity</th>
+<!--                    <th>Product</th>
+                    <th>Expectation quantity</th>-->
                     <th>Update schedule</th>
                 </tr>
             </thead>
             <tbody>
+            <p>${requestScope.plans}</p>
             <c:forEach var="plan" items="${requestScope.plans}">
-            <tr>
-                <td>${plan.id}</td>
-                <td>${plan.name}</td>
-                <td>${plan.dept.name}</td>
-                <td>${plan.start}</td>
-                <td>${plan.end}</td>
-             <td>
-                   <select>
-                <c:forEach var="header" items="${plan.headers}">
-                    <option value="${header.product.id}">${header.product.name}</option>
-                </c:forEach>
-            </select>
+                <tr>
+                    <td>${plan.id}</td>
+                    <td>${plan.name}</td>
+                    <td>${plan.dept.name}</td>
+                    <td>${plan.start}</td>
+                    <td>${plan.end}</td>
+                    <!--                <td>
+                    <c:forEach items="${requestScope.headers}" var="h">
+                        <select>
+                            <option value="${h.product.id}">${h.product.name}</option>
+                        </select>
+                    </c:forEach>
+                       
+
+                        
+                    
                 </td>
                 <td>
                     <c:forEach var="header" items="${plan.headers}">
-                        ${header.quantity} 
+                        ${header.quantity}
                     </c:forEach>
-                </td>
-                <td><a href="update?id=${plan.id}">Update</a></td>
-            </tr>
-            
-        </c:forEach>
-            </tbody>
-        </table>
+                </td>-->
+                    <td><a href="update?id=${plan.id}">Update</a></td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
 
-    </body>
+</body>
 </html>

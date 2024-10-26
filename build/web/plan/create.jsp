@@ -34,6 +34,8 @@
                     <td><input type="text" name="quantity${p.id}"/></td>
                     <td><input type="text" name="effort${p.id}"/></td>
                 </tr>    
+                
+                
                 </c:forEach>
             </table>
             <input type="submit" value="Save"/>

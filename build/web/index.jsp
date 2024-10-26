@@ -38,6 +38,7 @@
                     </form>
                 </c:otherwise>
             </c:choose>
+
         </header>
 
         <!-- Main content-->
@@ -51,13 +52,13 @@
         <a href="plan/create">Add new plan</a>
             </div>
                 <div class="listPlan">
-        <a href="plan/list">List/Update plan</a>
+        <a href="plan/view">List/Update plan</a>
             </div>
         </div>
     </div>
     <!-- Footer section -->
     <footer>
-        <p>Production Scheduling System - Protecting employee privacy.</p>
+        <p>Production Scheduling System</p>
     </footer>
 </body>
 </html>

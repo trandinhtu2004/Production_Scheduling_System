@@ -76,8 +76,10 @@ public class ProductionPlanCreateController extends BaseRBACController {
             header.setProduct(p);
             String raw_quantity = request.getParameter("quantity" + pid);
             String raw_effort = request.getParameter("effort" + pid);
-            header.setQuantity(raw_quantity != null && raw_quantity.length() > 0 ? Integer.parseInt(raw_quantity) : 0);
-            header.setEstimatedeffort(raw_effort != null && raw_effort.length() > 0 ? Float.parseFloat(raw_effort) : 0);
+            header.setQuantity(raw_quantity != null && raw_quantity.length() > 0 
+                    ? Integer.parseInt(raw_quantity) : 0);
+            header.setEstimatedeffort(raw_effort != null && raw_effort.length() > 0 
+                    ? Float.parseFloat(raw_effort) : 0);
 
             if (header.getQuantity() > 0 && header.getEstimatedeffort() > 0) {
                 plan.getHeaders().add(header);
