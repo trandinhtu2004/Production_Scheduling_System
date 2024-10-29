@@ -30,29 +30,16 @@
             </thead>
             <tbody>
             <p>${requestScope.plans}</p>
-            <c:forEach var="plan" items="${requestScope.plans}">
+            <c:forEach items="${requestScope.plans}" var="plan">
                 <tr>
                     <td>${plan.id}</td>
                     <td>${plan.name}</td>
                     <td>${plan.dept.name}</td>
                     <td>${plan.start}</td>
                     <td>${plan.end}</td>
-                    <!--                <td>
-                    <c:forEach items="${requestScope.headers}" var="h">
-                        <select>
-                            <option value="${h.product.id}">${h.product.name}</option>
-                        </select>
-                    </c:forEach>
-                       
-
-                        
-                    
-                </td>
-                <td>
-                    <c:forEach var="header" items="${plan.headers}">
-                        ${header.quantity}
-                    </c:forEach>
-                </td>-->
+                                    
+  
+                
                     <td><a href="update?id=${plan.id}">Update</a></td>
                 </tr>
             </c:forEach>

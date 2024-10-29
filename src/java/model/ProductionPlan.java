@@ -15,8 +15,22 @@ public class ProductionPlan {
     private String name;
     private Date start;
     private Date end;
+    
+    
     private Department dept;
+    
+    
     private ArrayList<ProductionPlanHeader> headers = new ArrayList<>();
+    
+    private ProductionPlanHeader pheaders;
+
+    public ProductionPlanHeader getPheaders() {
+        return pheaders;
+    }
+
+    public void setPheaders(ProductionPlanHeader pheaders) {
+        this.pheaders = pheaders;
+    }
 
     public ArrayList<ProductionPlanHeader> getHeaders() {
         return headers;

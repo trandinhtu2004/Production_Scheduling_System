@@ -20,6 +20,8 @@
             <file>file:/F:/prj301/Production_Scheduling_System/src/java/model/ProductionPlanHeader.java</file>
             <file>file:/F:/prj301/Production_Scheduling_System/src/java/model/Product.java</file>
             <file>file:/F:/prj301/Production_Scheduling_System/src/java/controller/productionplan/ProductionPlanCreateController.java</file>
+            <file>file:/F:/prj301/Production_Scheduling_System/web/plan/detail.jsp</file>
+            <file>file:/F:/prj301/Production_Scheduling_System/web/plan/report.jsp</file>
             <file>file:/F:/prj301/Production_Scheduling_System/src/java/controller/productionplan/ProductionPlanReportController.java</file>
             <file>file:/F:/prj301/Production_Scheduling_System/src/java/dal/ProductionPlanDBContext.java</file>
             <file>file:/F:/prj301/Production_Scheduling_System/web/plan/create.jsp</file>
@@ -28,7 +30,6 @@
             <file>file:/F:/prj301/Production_Scheduling_System/src/java/dal/DepartmentDBContext.java</file>
             <file>file:/F:/prj301/Production_Scheduling_System/src/java/dal/DBContext.java</file>
             <file>file:/F:/prj301/Production_Scheduling_System/src/java/dal/ProductDBContext.java</file>
-            <file>file:/F:/prj301/Production_Scheduling_System/src/java/controller/auth/LoginController.java</file>
             <file>file:/F:/prj301/Production_Scheduling_System/web/plan/list.jsp</file>
         </group>
     </open-files>

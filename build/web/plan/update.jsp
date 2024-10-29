@@ -4,33 +4,46 @@
     Author     : Admin
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="dal.*" %>
+<%@page import="model.*" %>
+<%@page import="java.lang.*" %>
+<%@page import="java.util.*" %>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h2>Update Plan: ${plan.name}</h2>
-<form action="update" method="POST">
-    <input type="hidden" name="planId" value="${plan.id}" />
-
-    <!-- Products and Progress Table -->
+    <title>Update Plan</title>
+</head>
+<body>
+    <h2>Update Plan: ${plan.name}</h2>
+    <p>Start Date: ${plan.start}</p>
+    <p>End Date: ${plan.end}</p>
+    <p>Department: ${plan.dept.name}</p>
     <h3>Products</h3>
+    
+    <p>List of products: ${requestScope.plan.headers.size()}</p>
+    
     <table border="1">
-        <tr>
-            <th>Product Name</th>
+        <tr> <th>Product Name</th>
             <th>Quantity</th>
-            <th>Progress (%)</th>
-        </tr>
-        <c:forEach var="p" items="${plan.headers}">
+            <th>Estimated Effort</th>
+        </tr> 
+        
+        <%
+            //ham <c:foreach> can't list.
+            ProductionPlan p = (ProductionPlan) request.getAttribute("plan");
+            ArrayList<ProductionPlanHeader> list = (ArrayList<ProductionPlanHeader>)request.getAttribute("header");
+            for(int i = 0; i<list.size();i++){
+            ProductionPlanHeader plh = list.get(i);
+        %>
             <tr>
-                <td>${p.product.name}</td>
-                <td>${p.product.quantity}</td>
-<!--                <td><input type="number" name="progress_${p.id}" value="${product.progress}" min="0" max="100" /></td>-->
+                <td><%= plh.getProduct().getName() %></td>
+                <td><%= plh.getQuantity() %></td> 
+                <td><%= plh.getEstimatedeffort() %></td>
             </tr>
-        </c:forEach>
+        <%}%>
     </table>
 
     <!-- Shift Schedule -->
@@ -42,14 +55,7 @@
             <th>Shift 2 (14h-18h)</th>
             <th>Shift 3 (19h-23h)</th>
         </tr>
-        <c:forEach var="shift" items="${shifts}">
-            <tr>
-                <td>${shift.shiftDate}</td>
-                <td><input type="checkbox" name="shift1_${shift.shiftDate}" ${shift.shift1 ? "checked" : ""} /></td>
-                <td><input type="checkbox" name="shift2_${shift.shiftDate}" ${shift.shift2 ? "checked" : ""} /></td>
-                <td><input type="checkbox" name="shift3_${shift.shiftDate}" ${shift.shift3 ? "checked" : ""} /></td>
-            </tr>
-        </c:forEach>
+<!--       
     </table>
 
     <input type="submit" value="Update" />

@@ -169,120 +169,64 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
         return plans;
 
     }
+    
+    
+    public ProductionPlan getProduct(int planId){
+ 
+    ProductionPlan plan = new ProductionPlan();
+    String sql = "SELECT pl.plid, pl.plname, pl.startdate, pl.enddate, d.dname, "
+               + "p.pid, p.pname, ph.quantity, ph.estimatedeffort "
+               + "FROM Plans pl "
+               + "INNER JOIN PlanHeaders ph ON ph.plid = pl.plid "
+               + "INNER JOIN Departments d ON d.did = pl.did "
+               + "INNER JOIN Products p ON p.pid = ph.pid "
+               + "WHERE pl.plid = ?";
+    PreparedStatement stm = null;
+    ResultSet rs = null;
 
-    public ArrayList<ProductionPlan> getPlans() {
+    try {
+        stm = connection.prepareStatement(sql);
+        stm.setInt(1, planId);
+        rs = stm.executeQuery();
 
-        ArrayList<ProductionPlan> plans = new ArrayList<>();
-        String sql = "SELECT pl.plid, pl.plname, pl.startdate, pl.enddate, "
-                + "d.dname, p.pid, p.pname, ph.quantity "
-                + "FROM Plans pl "
-                + " JOIN PlanHeaders ph ON ph.plid = pl.plid "
-                + " JOIN Departments d ON d.did = pl.did "
-                + " JOIN Products p ON p.pid = ph.pid "
-                + " ORDER BY pl.plid";
-        try {
-            PreparedStatement stm = connection.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery();
-            int currentPlanId = -1;
-            ProductionPlan currentPlan = null;
+        if (rs.next()) {
+            plan.setId(rs.getInt("plid"));
+            plan.setName(rs.getString("plname"));
+            plan.setStart(rs.getDate("startdate"));
+            plan.setEnd(rs.getDate("enddate"));
 
-            while (rs.next()) {
-                int planId = rs.getInt("plid");
+            Department dept = new Department();
+            dept.setName(rs.getString("dname"));
+            plan.setDept(dept);
 
-                // Nếu đây là một kế hoạch mới, tạo đối tượng ProductionPlan mới
-                if (planId != currentPlanId) {
-                    currentPlan = new ProductionPlan();
-                    currentPlan.setId(planId);
-                    currentPlan.setName(rs.getString("plname"));
-                    currentPlan.setStart(rs.getDate("startdate"));
-                    currentPlan.setEnd(rs.getDate("enddate"));
-
-                    Department d = new Department();
-                    d.setName(rs.getString("dname"));
-                    currentPlan.setDept(d);
-
-                    currentPlanId = planId;
-                }
-
-                // Thêm sản phẩm vào kế hoạch hiện tại
-                Product p = new Product();
-                p.setId(rs.getInt("pid"));
-                p.setName(rs.getString("pname"));
+            do {
+                Product product = new Product();
+                product.setId(rs.getInt("pid"));
+                product.setName(rs.getString("pname"));
 
                 ProductionPlanHeader header = new ProductionPlanHeader();
-                header.setProduct(p);
+                header.setProduct(product);
                 header.setQuantity(rs.getInt("quantity"));
+                header.setEstimatedeffort(rs.getFloat("estimatedeffort"));
 
-                currentPlan.getHeaders().add(header);
-                plans.add(currentPlan);
-            }
+                plan.getHeaders().add(header);
+                plan.setPheaders(header);
+            } while (rs.next());
+            
+        }
+    } catch (SQLException ex) {
+      Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
+
+    } finally {
+        try {
+            stm.close();
+            connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return plans;
+        
     }
-
-    public ArrayList<ProductionPlanHeader> listProductFromPlan() {
-        ArrayList<ProductionPlanHeader> pph = new ArrayList<>();
-
-        String sql = "";
-
-        return pph;
-
-    }
+    return plan;
+}
     
-    // Phương thức lấy kế hoạch bằng ID
-    public ProductionPlan getPlanById(int planId) {
-        String sql = ""; // Thêm điều kiện WHERE để tìm kiếm theo ID
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        HashMap<Integer, ProductionPlan> planMap = new HashMap<>();
-
-        try {
-            stm = connection.prepareStatement(sql);
-            stm.setInt(1, planId); // Gán giá trị ID vào PreparedStatement
-            rs = stm.executeQuery();
-            
-            // Kiểm tra xem có dữ liệu trả về không
-            if (rs.next()) {
-                ProductionPlan plan = new ProductionPlan();
-                plan.setId(rs.getInt("plid"));
-                plan.setName(rs.getString("plname"));
-                plan.setStart(rs.getDate("startdate"));
-                plan.setEnd(rs.getDate("enddate"));
-
-                Department d = new Department();
-                d.setName(rs.getString("dname"));
-                plan.setDept(d);
-
-                // Thêm thông tin header
-                do {
-                    Product p = new Product();
-                    p.setId(rs.getInt("pid"));
-                    p.setName(rs.getString("pname"));
-
-                    ProductionPlanHeader header = new ProductionPlanHeader();
-                    header.setProduct(p);
-                    header.setQuantity(rs.getInt("quantity"));
-                    header.setEstimatedeffort(rs.getFloat("estimatedeffort"));
-
-                    plan.getHeaders().add(header);
-                } while (rs.next()); // Duyệt tất cả các header có liên quan
-                
-                return plan; // Trả về kế hoạch nếu tìm thấy
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ (có thể log hoặc thông báo cho người dùng)
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stm != null) stm.close();
-            } catch (SQLException e) {
-                e.printStackTrace(); // Xử lý ngoại lệ
-            }
-        }
-
-        return null; // Trả về null nếu không tìm thấy kế hoạch
-    }
 }

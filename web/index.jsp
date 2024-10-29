@@ -25,8 +25,7 @@
                 <p>Copyright: Trần Đình Tú</p>
                 <p>Version 1.0</p>
             </div>
-            <!-- <a href="login.html" class="login-btn">Login</a> -->
-            <!-- Kiểm tra nếu không có 'account' trong session (nghĩa là đã logout) -->
+            
             <c:choose>
                 <c:when test="${sessionScope.account == null}">
                     <a href="login.html">login</a>
@@ -44,7 +43,7 @@
         <!-- Main content-->
         <div>
             <div class="news">
-                News:
+                <h1>News:</h1>
             </div>
         </div>
         <div>

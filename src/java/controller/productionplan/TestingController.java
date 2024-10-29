@@ -5,10 +5,7 @@
 
 package controller.productionplan;
 
-import dal.ProductDBContext;
 import dal.ProductionPlanDBContext;
-import dal.ProductionPlanDetailDBContext;
-import dal.ShiftDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,18 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.List;
-import model.PlanDetail;
-import model.Product;
 import model.ProductionPlan;
 import model.ProductionPlanHeader;
-import model.Shift;
 
 /**
  *
  * @author Admin
  */
-public class ProductionUpdatePlanScheduleController extends HttpServlet {
+public class TestingController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -44,10 +37,10 @@ public class ProductionUpdatePlanScheduleController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductionUpdatePlanScheduleController</title>");  
+            out.println("<title>Servlet TestingController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductionUpdatePlanScheduleController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet TestingController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,7 +57,7 @@ public class ProductionUpdatePlanScheduleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String idParam = request.getParameter("id");
+         String idParam = request.getParameter("id");
         int planId = Integer.parseInt(idParam);
          
       
@@ -75,17 +68,33 @@ public class ProductionUpdatePlanScheduleController extends HttpServlet {
         
         request.setAttribute("header", ph);
         request.setAttribute("plan", plan);
-        for(int i = 0; i<ph.size();i++){
-            ProductionPlanHeader p = ph.get(i);
-        }
-        request.getRequestDispatcher("../plan/update.jsp").forward(request, response);
+        
+        request.getRequestDispatcher("../plan/test.html").forward(request, response);     
     } 
 
-    
+    /** 
+     * Handles the HTTP <code>POST</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         String idParam = request.getParameter("id");
+        int planId = Integer.parseInt(idParam);
+         
+      
+        
+        ProductionPlanDBContext dbContext = new ProductionPlanDBContext();
+        ProductionPlan plan = dbContext.getProduct(planId);
+        ArrayList<ProductionPlanHeader> ph = plan.getHeaders();
+        
+        request.setAttribute("header", ph);
+        request.setAttribute("plan", plan);
+        
+        request.getRequestDispatcher("../plan/test.html").forward(request, response);     
     }
 
     /** 
@@ -96,7 +105,5 @@ public class ProductionUpdatePlanScheduleController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-   
 
 }
