@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author admin
@@ -15,7 +17,34 @@ public class ProductionPlanHeader {
     private int quantity;
     private float estimatedeffort;
     private String productname;
+    private ArrayList<PlanDetail> plandetails;
+    private ArrayList<Shift> shifts;
 
+    public String getProductname() {
+        return productname;
+    }
+
+    public void setProductname(String productname) {
+        this.productname = productname;
+    }
+
+    public ArrayList<PlanDetail> getPlandetails() {
+        return plandetails;
+    }
+
+    public void setPlandetails(ArrayList<PlanDetail> plandetails) {
+        this.plandetails = plandetails;
+    }
+
+    public ArrayList<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(ArrayList<Shift> shifts) {
+        this.shifts = shifts;
+    }
+
+    
     public int getId() {
         return id;
     }
@@ -55,6 +84,8 @@ public class ProductionPlanHeader {
     public void setEstimatedeffort(float estimatedeffort) {
         this.estimatedeffort = estimatedeffort;
     }
+
+   
     
             
 }

@@ -210,7 +210,7 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
                 header.setEstimatedeffort(rs.getFloat("estimatedeffort"));
 
                 plan.getHeaders().add(header);
-                plan.setPheaders(header);
+                
             } while (rs.next());
             
         }

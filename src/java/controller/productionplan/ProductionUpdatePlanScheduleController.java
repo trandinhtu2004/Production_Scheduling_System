@@ -22,6 +22,8 @@ import model.Product;
 import model.ProductionPlan;
 import model.ProductionPlanHeader;
 import model.Shift;
+import java.sql.*;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -67,12 +69,18 @@ public class ProductionUpdatePlanScheduleController extends HttpServlet {
         String idParam = request.getParameter("id");
         int planId = Integer.parseInt(idParam);
          
-      
+      ProductionPlanDetailDBContext pd = new ProductionPlanDetailDBContext();
         
         ProductionPlanDBContext dbContext = new ProductionPlanDBContext();
         ProductionPlan plan = dbContext.getProduct(planId);
         ArrayList<ProductionPlanHeader> ph = plan.getHeaders();
         
+        
+        List<java.util.Date> dates = null;
+        dates = pd.getDate(planId);
+        
+        
+        request.setAttribute("dates", dates);
         request.setAttribute("header", ph);
         request.setAttribute("plan", plan);
         for(int i = 0; i<ph.size();i++){
@@ -85,7 +93,7 @@ public class ProductionUpdatePlanScheduleController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /** 
