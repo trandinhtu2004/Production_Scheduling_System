@@ -23,7 +23,7 @@ import model.*;
 public class ProductionPlanDetailDBContext extends DBContext<PlanDetail>{
    
     
-  public List<java.util.Date> getDate(int planId) {
+  public List<java.util.Date> getListDate(int planId) {
     List<java.util.Date> dates = new ArrayList<>();
     try {
         String sqlPlanDates = "SELECT startdate, enddate FROM Plans WHERE plid = ?";
@@ -53,11 +53,19 @@ public class ProductionPlanDetailDBContext extends DBContext<PlanDetail>{
     }
     return dates;
 }
+  
+  
+  public java.util.Date getPlanByDate(int planId, java.util.Date selectedDate){
+      java.util.Date datePointer = new java.util.Date();
+      for (int i = 0; i <= getListDate(planId).size();i++){
+          
+      }
+      return datePointer;
+  }
 
   public void insertAndUpdateDetailShift(PlanDetail model) {
         try {
             connection.setAutoCommit(false);
-
             // Check if the record exists
             String sqlSelectDetail = "SELECT * FROM PlanDetails WHERE pdid = ?";
             PreparedStatement selectStmt = connection.prepareStatement(sqlSelectDetail);

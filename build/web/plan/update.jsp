@@ -55,65 +55,64 @@
     <h3>Shift Schedule</h3>
 <form action="update" method="GET">
     <table style="border-collapse: collapse; width: 100%;">
-        <thead>
-            <tr>
-                <td colspan="7" style="padding: 8px;">
-                    <label>Date:</label>
-                    
-                        <%
-                            List<Date> dates = (List<Date>) request.getAttribute("dates");
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                            for (Date date : dates) {
-                        %>
-                        <h3><%= sdf.format(date) %></h3>
-                        
-                    
-                </td>
-            </tr>
-            <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" rowspan="2">Product</th>
-                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" colspan="2">K1<br/>(07:00-11:00)</th>
-                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" colspan="2">K2<br/>(14:00-18:00)</th>
-                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" colspan="2">K3<br/>(19:00-23:00)</th>
-            </tr>
-            <tr>
-                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Input</th>
-                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">DB</th>
-                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Input</th>
-                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">DB</th>
-                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Input</th>
-                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">DB</th>
-            </tr>
-        </thead>
-        <tbody>
-            <%
-                for(int i = 0; i < list.size(); i++){
-                    ProductionPlanHeader plh = list.get(i);
-            %>
-            <tr>
-                <td style="border: 1px solid #ddd; padding: 8px;"><%= plh.getProduct().getName() %></td>
-                
-                <td style="border: 1px solid #ddd; padding: 8px;">
-                    <input type="number" name="quantity--K1" style="width: 60px;">
-                </td>
-                <td style="border: 1px solid #ddd; padding: 8px;">0</td>
-                
-                <td style="border: 1px solid #ddd; padding: 8px;">
-                    <input type="number" name="quantity--K2" style="width: 60px;">
-                </td>
-                <td style="border: 1px solid #ddd; padding: 8px;">0</td>
-                
-                <td style="border: 1px solid #ddd; padding: 8px;">
-                    <input type="number" name="quantity--K3" style="width: 60px;">
-                </td>
-                <td style="border: 1px solid #ddd; padding: 8px;">0</td>
-            </tr>
-            <% } %>
-             <%
-                            }
-                        %>
-        </tbody>
-    </table>
+    <thead>
+        <tr>
+            <th colspan="7" style="padding: 8px; text-align: left;">
+                <label>Date:</label>
+            </th>
+        </tr>
+        <tr>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" rowspan="2">Product</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" colspan="2">K1<br/>(07:00-11:00)</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" colspan="2">K2<br/>(14:00-18:00)</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" colspan="2">K3<br/>(19:00-23:00)</th>
+        </tr>
+        <tr>
+            <th style="border: 1px solid #ddd; padding: 16px; text-align: center;">Input</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">DB</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Input</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">DB</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Input</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">DB</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%
+            List<Date> dates = (List<Date>) request.getAttribute("dates");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            for (Date date : dates) {
+        %>
+        <tr>
+            <td colspan="7" style="padding: 8px; text-align: left;">
+                <h3><%= sdf.format(date) %></h3>
+            </td>
+        </tr>
+        <%
+            for(int i = 0; i < list.size(); i++){
+                ProductionPlanHeader plh = list.get(i);
+        %>
+        <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;"><%= plh.getProduct().getName() %></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">
+                <input type="number" name="quantity--K1" style="width: 60px;">
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px;">0</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">
+                <input type="number" name="quantity--K2" style="width: 60px;">
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px;">0</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">
+                <input type="number" name="quantity--K3" style="width: 60px;">
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px;">0</td>
+        </tr>
+        <% 
+            } // end of inner for loop
+        } // end of outer for loop
+        %>
+    </tbody>
+</table>
+
 </form>
 
     <input type="submit" value="Update" />

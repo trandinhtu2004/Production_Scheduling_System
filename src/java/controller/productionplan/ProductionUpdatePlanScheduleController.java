@@ -77,9 +77,9 @@ public class ProductionUpdatePlanScheduleController extends HttpServlet {
         
         
         List<java.util.Date> dates = null;
-        dates = pd.getDate(planId);
+        dates = pd.getListDate(planId);
         
-        
+
         request.setAttribute("dates", dates);
         request.setAttribute("header", ph);
         request.setAttribute("plan", plan);
